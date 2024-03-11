@@ -5,6 +5,7 @@ interface Tag {
 
 function parseTag(input: string): Tag | null {
     // Assumption: Using regex to check whether or not the tags match a specific letter.
+    // Regular expression finds tags that match the pattern opening of  the tags with a single uppercase letter.
     const match = input.match(/<\/?([A-Z])>/);
     if (match) {
         return {
@@ -16,7 +17,7 @@ function parseTag(input: string): Tag | null {
 }
 
 function checkTags(input: string): string {
-    const stack: Tag[] = [];
+    const stack: Tag[] = []; // Initialise stack to keep track of the tags.
     let index = 0;
 
     while (index < input.length) {

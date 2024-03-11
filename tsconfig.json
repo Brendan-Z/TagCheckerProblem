@@ -1,8 +1,7 @@
 {
   "compilerOptions": {
     "target": "ES6",
-    "lib": ["dom", "ES6"
-    , "dom.iterable", "scripthost"],
+    "lib": [],
     "module": "commonjs",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,

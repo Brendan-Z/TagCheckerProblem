@@ -1,6 +1,7 @@
 function parseTag(input) {
     // Assumption: Using regex to check whether or not the tags match a specific letter.
-    const match = input.match(/<\/?([A-Z])>/);
+    // Regular expression finds tags that match the pattern opening of  the tags with a single uppercase letter.
+    var match = input.match(/<\/?([A-Z])>/);
     if (match) {
         return {
             tag: match[1],
@@ -11,22 +12,22 @@ function parseTag(input) {
 }
 function checkTags(input) {
     var _a;
-    const stack = [];
-    let index = 0;
+    var stack = []; // Initialise stack to keep track of the tags.
+    var index = 0;
     while (index < input.length) {
-        const restInput = input.substring(index);
-        const nextTagMatch = restInput.match(/<\/?[A-Z]>/);
+        var restInput = input.substring(index);
+        var nextTagMatch = restInput.match(/<\/?[A-Z]>/);
         if (nextTagMatch) {
-            const tagStr = nextTagMatch[0];
-            const tag = parseTag(tagStr);
+            var tagStr = nextTagMatch[0];
+            var tag = parseTag(tagStr);
             if (tag) {
                 if (tag.isOpening) {
                     stack.push(tag);
                 }
                 else {
-                    const lastTag = stack.pop();
+                    var lastTag = stack.pop();
                     if (!lastTag || lastTag.tag !== tag.tag) {
-                        return `"Expected ${lastTag ? `</${lastTag.tag}>` : '#'} found </${tag.tag}>"`;
+                        return "\"Expected ".concat(lastTag ? "</".concat(lastTag.tag, ">") : '#', " found </").concat(tag.tag, ">\"");
                     }
                 }
             }
@@ -37,7 +38,7 @@ function checkTags(input) {
         }
     }
     if (stack.length > 0) {
-        return `"Expected </${stack[stack.length - 1].tag}> found #"`;
+        return "\"Expected </".concat(stack[stack.length - 1].tag, "> found #\"");
     }
     return '"Correctly tagged paragraph"';
 }
